@@ -43,29 +43,14 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
+            "@php artisan key:generate --ansi"
         ],
         "post-install-cmd": [
             "@php artisan clear-compiled",
             "@php artisan optimize",
             "@php artisan config:cache",
             "@php artisan route:cache",
-            "@php artisan view:cache",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --force"
-        ],
-        "railway-build": [
-            "echo 'Iniciando build para Railway...'",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --force",
-            "@php artisan config:cache",
-            "@php artisan route:cache",
-            "@php artisan view:cache",
-            "chmod -R 755 storage/",
-            "chmod -R 755 bootstrap/cache/",
-            "echo 'Build completado exitosamente!'"
+            "@php artisan view:cache"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

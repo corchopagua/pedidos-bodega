@@ -1,27 +1,18 @@
 #!/bin/bash
 echo "🚀 Iniciando build para Railway..."
 
-# Instalar dependencias
+# Instalar dependencias optimizadas para producción
 composer install --no-dev --optimize-autoloader --no-interaction
 
-# Crear directorio de base de datos si no existe
-mkdir -p database
+# Verificación (opcional)
+ls -lh database/database.sqlite
 
-# Crear base de datos SQLite si no existe
-if [ ! -f database/database.sqlite ]; then
-    echo "📦 Creando base de datos SQLite..."
-    touch database/database.sqlite
-fi
-
-# Ejecutar migraciones
-php artisan migrate --force
-
-# Optimizar para producción
+# Optimizar cachés para producción
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Configurar permisos
+# Configurar permisos (opcional pero recomendable)
 chmod -R 755 storage/
 chmod -R 755 bootstrap/cache/
 chmod 664 database/database.sqlite
